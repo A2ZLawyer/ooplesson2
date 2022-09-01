@@ -1,0 +1,57 @@
+Вариант 1
+using System;
+
+enum AccountType :byte
+{
+Текущий,
+Сберегательный
+}
+class BankAccount
+{
+    public Guid accountNumber;
+    public double balance;
+    public AccountType type;
+}
+class Program
+{
+    static void Main()
+    {
+        BankAccount bA = new BankAccount();
+        bA.accountNumber = Guid.NewGuid();
+        bA.balance = 999.99;
+        bA.type = AccountType.Текущий;
+        Console.WriteLine($"Параметры счета: Номер счета: {bA.accountNumber} | Баланс: {bA.balance} | Тип счета: {bA.type}");
+    }
+}
+Вариант 2
+BankAccount.cs
+using System;
+namespace loopesson2
+{
+    public class BankAccount
+    {
+            public Guid accountNumber;
+            public double balance;
+            public AccountType type;
+    }
+}
+Program.cs
+using System;
+using loopesson2;
+
+public enum AccountType :byte
+{
+Текущий,
+Сберегательный
+}
+class Program
+{
+    static void Main()
+    {
+        loopesson2.BankAccount bA = new BankAccount();
+        bA.accountNumber = Guid.NewGuid();
+        bA.balance = 999.99;
+        bA.type = AccountType.Текущий;
+        Console.WriteLine($"Параметры счета: Номер счета: {bA.accountNumber} | Баланс: {bA.balance} | Тип счета: {bA.type}");
+    }
+}
