@@ -1,0 +1,118 @@
+TypeOfBankAccount.cs
+using System;
+namespace ooplesson2task3
+{
+    public enum TypeOfBankAccount
+    {
+        Дебетовый,
+        Кредитный,
+        Депозиитный,
+    }
+}
+Account.cs
+using System;
+namespace ooplesson2task3
+{
+    public class Account
+    {
+        ulong _number;
+
+        static ulong counter = 408178100000001020;
+
+        decimal _balance;
+
+        TypeOfBankAccount _typeAccount;
+
+        public Account()
+        {
+            _number = Increase();
+        }
+
+        public Account(decimal balance)
+        {
+            _balance = balance;
+            _number = Increase();
+
+        }
+        public Account(TypeOfBankAccount typeAccount)
+        {
+            _typeAccount = typeAccount;
+            _number = Increase();
+
+        }
+
+        public Account(decimal balance, TypeOfBankAccount typeAccount)
+        {
+            _balance = balance;
+            _typeAccount = typeAccount;
+            _number = Increase();
+
+        }
+
+        ulong Increase()
+        {
+            return counter++;
+        }
+
+        public ulong InfoNumber()
+        {
+            return _number;
+        }
+
+        public decimal InfoBalance()
+        {
+            return _balance;
+        }
+
+        public TypeOfBankAccount InfoTypeAccount()
+        {
+            return _typeAccount;
+        }
+
+        public void FillNumber(ulong number)
+        {
+            _number = number;
+        }
+
+        public void FillBalance(decimal balance)
+        {
+            _balance = balance;
+
+        }
+
+        public void FillTypeAccount(TypeOfBankAccount typeAccount)
+        {
+            _typeAccount = typeAccount;
+        }
+
+        public void FullInfo()
+        {
+            Console.WriteLine($"Тип счёта: | {_typeAccount} | Номер счёта: {_number} | Баланс: {_balance}");
+        }
+
+    }
+}
+Program.cs
+using System;
+
+namespace ooplesson2task3
+{
+    class Program
+    {
+
+
+        static void Main(string[] args)
+        {
+
+
+
+            Account account1 = new Account(1000);
+            Account account2 = new Account(TypeOfBankAccount.Дебетовый);
+            Account account3 = new Account(999, TypeOfBankAccount.Депозиитный);
+
+            account1.FullInfo();
+            account2.FullInfo();
+            account3.FullInfo();
+        }
+    }
+}
