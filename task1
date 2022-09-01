@@ -1,0 +1,51 @@
+//Вариант 1
+using System;
+
+enum AccountType :byte
+{
+Текущий,
+Сберегательный
+}
+class BankAccount
+{
+    public ulong accountNumber;
+    public double balance;
+    public AccountType type;
+}
+class Program
+{
+    static void Main()
+    {
+        BankAccount bA = new BankAccount();
+        bA.accountNumber = 408178100000001020;
+        bA.balance = 999.99;
+        bA.type = AccountType.Текущий;
+        Console.WriteLine($"Параметры счета: Номер счета: {bA.accountNumber} | Баланс: {bA.balance} | Тип счета: {bA.type}");
+    }
+}
+//Вариант 2
+
+using System;
+
+enum AccountType : byte { Текущий, Сберегательный }
+class Bank
+{
+    public Bank(ulong accountNumber, double balance, AccountType type)
+    {
+        AccountNumber = accountNumber;
+        Balance = balance;
+        Type = type;
+    }
+    public ulong AccountNumber { get; set; }
+    public double Balance { get; set; }
+    public AccountType Type { get; set; }
+    public override string ToString() => $"Номер счета - {AccountNumber}, Баланс - {Balance}, Тип счета - {Type}";
+}
+class Program
+{
+    static void Main()
+    {
+        Bank bank = new Bank(408178100000001020, 999999.99, AccountType.Текущий);
+        Console.WriteLine(bank);
+    }
+}

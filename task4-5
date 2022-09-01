@@ -1,0 +1,173 @@
+Account.sc
+using System;
+namespace ooplesson2task4
+{
+    public class Account
+    {
+        static ulong counter = 408178100000001020;
+        ulong _number;
+        public ulong Number
+        {
+            get
+            {
+                return _number;
+            }
+            set
+            {
+                if (value.GetType().ToString() == "System.Int64")
+                {
+                    _number = value;
+                }
+            }
+
+        }
+        decimal _balance;
+        public decimal Balance
+        {
+            get
+            {
+                return _balance;
+            }
+            set
+            {
+                if (value.GetType().ToString() == "System.Decimal")
+                {
+                    _balance = value;
+                }
+            }
+        }
+        TypeOfBankAccount _typeAccount;
+        public TypeOfBankAccount TypeAccount
+        {
+            get
+            {
+                return _typeAccount;
+            }
+            set
+            {
+                if (value.GetType().ToString() == "ooplesson2task4.TypeOfBankAccount")
+                {
+                    _typeAccount = value;
+                }
+            }
+        }
+        public Account()
+        {
+            _number = Increase();
+        }
+        public Account(decimal balance)
+        {
+            _balance = balance;
+            _number = Increase();
+        }
+        public Account(TypeOfBankAccount typeAccount)
+        {
+            _typeAccount = typeAccount;
+            _number = Increase();
+        }
+        public Account(decimal balance, TypeOfBankAccount typeAccount)
+        {
+            _balance = balance;
+            _typeAccount = typeAccount;
+            _number = Increase();
+        }
+        ulong Increase()
+        {
+            return counter++;
+        }
+
+
+        public void FullInfo()
+        {
+            Console.WriteLine($"Тип счёта: {_typeAccount}, Номер счёта: {_number}, Баланс: {_balance}");
+        }
+
+        public void DepositMoney(ulong number, decimal put)
+        {
+            if (number == _number)
+            {
+                _balance = _balance + put;
+                Console.WriteLine($"Счёт пополнен на: {put}");
+
+            }
+
+        }
+        public void WithdrawMoney(ulong number, decimal take)
+        {
+            if (number == _number)
+            {
+                if (_balance >= take)
+                {
+                    _balance = _balance - take;
+
+                    Console.WriteLine($"Со счёта снята на: {take}");
+                }
+                else
+                    Console.WriteLine($"На счете недостаточно средств. Баланс: {_balance}; Сумма для снятия: {take};");
+
+            }
+        }
+
+
+
+    }
+}
+TypeOfBankAccount.cs
+using System;
+namespace ooplesson2task4
+{
+    public enum TypeOfBankAccount
+    {
+        Дебетовый,
+        Кредитный,
+        Депозиитный,
+    }
+}
+
+Program.cs
+using System;
+using System.Collections.Generic;
+
+namespace ooplesson2task4
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<Account> listAccount = new List<Account>();
+
+
+            Account account1 = new Account();
+
+            account1.Balance = 10;
+            account1.Number = 5500;
+            account1.TypeAccount = TypeOfBankAccount.Дебетовый;
+
+            listAccount.Add(account1);
+
+            Console.WriteLine(account1.Balance);
+            Console.WriteLine(account1.Number);
+            Console.WriteLine(account1.TypeAccount);
+
+            Account account2 = new Account(TypeOfBankAccount.Дебетовый);
+            listAccount.Add(account2);
+            Account account3 = new Account(100, TypeOfBankAccount.Дебетовый);
+            listAccount.Add(account3);
+
+            foreach (var item in listAccount)
+            {
+                item.FullInfo();
+            }
+
+            account1.DepositMoney(account1.Number, 994);
+            account1.FullInfo();
+
+            account1.WithdrawMoney(account1.Number, 15);
+            account1.FullInfo();
+
+            account1.WithdrawMoney(account1.Number, 135);
+            account1.FullInfo();
+
+        }
+    }
+}
